@@ -9,7 +9,7 @@
     currsum=Math.max(currsum+nums[i],nums[i]);
     maxsum=Math.max(maxsum,currsum);
     }
-        
+        //test
     
     return maxsum;
     }
