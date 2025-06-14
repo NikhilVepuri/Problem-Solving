@@ -1,0 +1,38 @@
+class Solution {
+    public String minWindow(String s, String t) {
+        // Intution: 3 steps - #1 find substring, #2 shave off unwanted chars infront of substring, #3 compare & save the minLength and indices
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        if(s==null || t==null || s.isEmpty() || t.isEmpty()){
+            return "";
+        }
+        int i=0, j=0, minLength=s.length(), left=0,right=s.length()-1, count=map.size(); 
+        boolean found = false;
+        while(j<s.length()){
+            char endChar = s.charAt(j++);
+            if(map.containsKey(endChar)){
+                map.put(endChar, map.get(endChar)-1);
+                if(map.get(endChar)==0) count = count-1;
+            }
+            if(count > 0) continue;
+        while(count == 0){
+            char startChar = s.charAt(i++);
+            if(map.containsKey(startChar)){
+                map.put(startChar, map.get(startChar)+1);
+                if(map.get(startChar)>0) count = count+1;
+            }
+        }
+        
+        if(j-i<minLength){
+            left = i;
+            right = j;
+            minLength = j-i;
+            found = true;
+        }
+        }
+
+        return !found? "": s.substring(left-1, right);
+    }
+}
