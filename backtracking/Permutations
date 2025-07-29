@@ -1,0 +1,170 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        boolean[] used = new boolean[nums.length];
+        build(nums, res, new ArrayList<>(), used);
+        return res;
+    }
+
+    public void build(int[] nums, List<List<Integer>> res, List<Integer> curr, boolean[] used){
+        if(nums.length == curr.size())
+            res.add(new ArrayList<>(curr));
+        for(int i = 0; i< nums.length; i++){
+            if(used[i]) continue;
+
+            curr.add(nums[i]);
+            used[i] = true;
+
+            build(nums, res, curr, used);
+            curr.remove(curr.size()-1);
+            used[i] = false;
+        }
+    }
+}
+
+// Backtracking explanation : Permutations
+// ✅ Start from the top
+// We call:
+// java
+// CopyEdit
+// backtrack([], [false, false, false])
+// Let’s walk through this step by step, keeping track of:
+// * current: what we’ve picked so far
+// * used: which numbers we’ve used
+// * 🧱 call stack level
+
+// 🌳 RECURSION TREE (and values at each step)
+// 📦 LEVEL 0: Start
+// r
+// CopyEdit
+// Call: backtrack([], [F,F,F])
+// Loop: i = 0 → pick 1
+
+// 📦 LEVEL 1: [1]
+// r
+// CopyEdit
+// Call: backtrack([1], [T,F,F])
+// Loop:
+// - i = 0 → skip (1 already used)
+// - i = 1 → pick 2
+
+// 📦 LEVEL 2: [1,2]
+// r
+// CopyEdit
+// Call: backtrack([1,2], [T,T,F])
+// Loop:
+// - i = 0,1 → skip
+// - i = 2 → pick 3
+
+// 📦 LEVEL 3: [1,2,3] ✅ BASE CASE
+// css
+// CopyEdit
+// Add [1,2,3] to result
+// ⬅️ Undo: remove 3 → [1,2], used[2]=F
+
+// 🔙 BACKTRACK TO LEVEL 2: [1,2]
+// arduino
+// CopyEdit
+// Continue loop → i = 2 done
+// ⬅️ Undo: remove 2 → [1], used[1]=F
+
+// 🔙 BACKTRACK TO LEVEL 1: [1]
+// diff
+// CopyEdit
+// Loop:
+// - i = 2 → pick 3 → [1,3], used[2]=T
+
+// 📦 LEVEL 2: [1,3]
+// diff
+// CopyEdit
+// Loop:
+// - i = 0,2 → skip
+// - i = 1 → pick 2
+
+// 📦 LEVEL 3: [1,3,2] ✅ BASE CASE
+// arduino
+// CopyEdit
+// Add [1,3,2] to result
+// ⬅️ Undo: remove 2 → [1,3], used[1]=F
+// ⬅️ Undo: remove 3 → [1], used[2]=F
+// ⬅️ Undo: remove 1 → [], used[0]=F
+
+// 🔁 LOOP CONTINUES AT LEVEL 0: []
+// ini
+// CopyEdit
+// i = 1 → pick 2
+
+// 📦 LEVEL 1: [2]
+// diff
+// CopyEdit
+// Loop:
+// - i = 0 → pick 1
+
+// 📦 LEVEL 2: [2,1]
+// diff
+// CopyEdit
+// Loop:
+// - i = 2 → pick 3
+
+// 📦 LEVEL 3: [2,1,3] ✅ BASE CASE
+// ⬅️ Backtrack all the way to [2]
+
+// 📦 LEVEL 2: [2,3]
+// pgsql
+// CopyEdit
+// Pick i = 0 → 1
+// → [2,3,1] ✅
+// ⬅️ Backtrack all the way to []
+
+// 📦 LEVEL 1: [3]
+// arduino
+// CopyEdit
+// Then do [3,1,2] ✅
+// Then do [3,2,1] ✅
+
+// ✅ FINAL RESULT (after all backtracking)
+// text
+// CopyEdit
+// [
+//   [1, 2, 3],
+//   [1, 3, 2],
+//   [2, 1, 3],
+//   [2, 3, 1],
+//   [3, 1, 2],
+//   [3, 2, 1]
+// ]
+
+// 🔁 At Every Call
+// Depth	current	used
+// 0	[]	[F,F,F]
+// 1	[1]	[T,F,F]
+// 2	[1,2]	[T,T,F]
+// 3	[1,2,3]	[T,T,T]
+// ...	Backtrack	undo in reverse
+
+// 🧠 What Happens After a Backtrack?
+// Let’s say we go from:
+// java
+// CopyEdit
+// current = [1, 2, 3]
+// used    = [T, T, T]
+// After backtrack:
+// * remove 3 → current = [1,2]
+// * used[2] = false
+// * loop continues from i = 3 (end)
+// * return to caller (level above)
+
+// Would you like me to build a full ASCII recursion tree or visual animation-like chart for this? I can do that too!
+
+// Ask ChatGPT
+
+
+
+// Get smarter responses, upload files and images, and more.
+// Log in
+// Sign up for free
+
+
+
+
+
