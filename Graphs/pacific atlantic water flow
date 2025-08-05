@@ -1,0 +1,44 @@
+class Solution {
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        int rows = heights.length;
+        int columns = heights[0].length;
+
+        boolean[][] pac = new boolean[rows][columns];
+        boolean[][] atl = new boolean[rows][columns];
+
+        for(int col = 0; col < columns; col++){
+            dfs(0, col, rows, columns, heights, heights[0][col], pac);
+            dfs(rows-1, col, rows, columns, heights, heights[rows-1][col], atl);
+        }
+        for(int row = 0; row < rows; row++){
+            dfs(row, 0, rows, columns, heights, heights[row][0], pac);
+            dfs(row, columns-1, rows, columns, heights, heights[row][columns-1], atl);
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        for(int row = 0; row < rows ;row++){
+            for(int col = 0; col < columns; col++){
+                if(pac[row][col] && atl[row][col])
+                    res.add(Arrays.asList(row,col));
+            }
+        }
+        return res;
+    }
+
+    public void dfs(int row, int col, int rows, int columns, int[][] heights, int prevHeight, boolean[][] visited){
+        if(row<0 || row>=rows || col<0 || col>=columns || visited[row][col] || prevHeight>heights[row][col])
+        return;
+
+        visited[row][col] = true;
+
+        dfs(row+1, col, rows, columns, heights, heights[row][col], visited);
+        dfs(row-1, col, rows, columns, heights, heights[row][col], visited);
+        dfs(row, col+1, rows, columns, heights, heights[row][col], visited);
+        dfs(row, col-1, rows, columns, heights, heights[row][col], visited);
+
+    }
+}
+// 1 2 2 3 5
+// 3 2 3 4 4
+// 2 4 5 3 1 
+// 6,7,1,4,5
+// 5,1,1,2,4
