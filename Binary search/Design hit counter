@@ -1,0 +1,31 @@
+class HitCounter {
+    int[] hits;
+    int index = 0;
+
+    public HitCounter() {
+        this.hits = new int[300];
+    }
+    
+    public void hit(int timestamp) {
+        hits[index] = timestamp;
+        index++;
+    }
+    
+    public int getHits(int timestamp) {
+        int target = timestamp-300;
+        int left = 0;
+        int right = index-1;
+        System.out.println("target :"+target);
+        while(left<=right){
+            int mid = left + (right - left) / 2;
+            if (hits[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return index - left;
+        
+    }
+}
