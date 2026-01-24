@@ -1,0 +1,17 @@
+class Solution {
+    //go backwards instead -> see if you can reduce (3,5) to (1,1)
+    public boolean reachingPoints(int sx, int sy, int tx, int ty) {
+        while(ty>sy && tx>sx){
+            if(ty>tx){
+                ty%=tx;
+            }else{
+                tx%=ty;
+            }
+        }
+        if(tx==sx&&ty==sy) return true;
+         if (tx == sx) return ty > sy && (ty - sy) % sx == 0;
+        if (ty == sy) return tx > sx && (tx - sx) % sy == 0;
+
+        return false;
+    }
+}
