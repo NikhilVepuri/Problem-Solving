@@ -1,3 +1,5 @@
+//2
+//if you're searching for exact index and returning mid in loop, go with while(left<=right), else if you're looking for boundary and returning out side while(left<right)
 class Solution {
     public int search(int[] nums, int target) {
         int left = 0;
