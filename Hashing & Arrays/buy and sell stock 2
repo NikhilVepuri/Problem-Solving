@@ -1,0 +1,25 @@
+class Solution {
+    public int maxProfit(int[] nums) {
+        int lo = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        int profit = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i]<lo){
+                lo = nums[i];
+                maxProfit = maxProfit+profit;
+                profit = 0;
+            }else{
+                int currProfit = nums[i]-lo;
+               if(currProfit > profit){
+                profit = currProfit;
+               }else{
+                lo = nums[i];
+                maxProfit = maxProfit+profit;
+                profit = 0;
+               }
+            }
+        }
+        maxProfit = maxProfit+profit;
+        return maxProfit;
+    }
+}
