@@ -24,3 +24,33 @@ class Solution {
         }
 
     }
+//approach 2- similar
+class Solution {
+    public boolean validPalindrome(String str) {
+       int left = 0;
+       int right = str.length()-1;
+    
+       while(left <= right){
+            if(str.charAt(left) == str.charAt(right)){
+                left++;
+            right--;
+                continue;
+            }else{
+                if(isPalindrome(str, left+1, right)||isPalindrome(str, left, right-1)){
+                    return true;
+                }else return false;
+            }
+            
+       }
+       return true;
+    }
+
+    public boolean isPalindrome(String str, int left, int right){
+        while(left <= right){
+            if(str.charAt(left++) == str.charAt(right--)){
+                continue;
+            }else return false;
+       }
+       return true;
+    }
+}
