@@ -20,3 +20,24 @@ class Solution {
         return res;
     }
 }
+///2nd time
+class Solution {
+    public int maxArea(int[] nums) {
+        int left = 0;
+        int right = nums.length-1;
+
+        int maxArea = 0;
+        while(left < right){
+            int area = 0;
+            if(nums[left]<=nums[right]){
+                area = nums[left] * (right-left);
+                left++;
+            }else{
+                area = nums[right] * (right-left);
+                right--;
+            }
+            maxArea = Math.max(maxArea, area);
+        }
+return maxArea;
+    }
+}
